@@ -1,4 +1,4 @@
-# 💅 Glamour Nail & Spa Resort
+# 💅 Gl'amour Nail & Spa Resort
 
 ![Version](https://img.shields.io/badge/version-1.0.0-pink)
 ![License](https://img.shields.io/badge/license-MIT-blue)
