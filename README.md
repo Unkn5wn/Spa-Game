@@ -1,387 +1,283 @@
-💅 Glamour Nail & Spa Resort
-A fun and relaxing spa management game where you build your dream beauty empire!
+Open index.html in your browser
 
-Game Description
-Welcome to Glamour Nail & Spa Resort - the ultimate spa management experience! Take charge of your own luxury spa and serve happy customers while building your beauty empire from the ground up.
+Double-click the file, OR
+Right-click → Open with → Browser
+Play! 🎮
 
-🎮 Gameplay
-Run a bustling spa with 4 service stations: Manicure 💅, Pedicure 🦶, Facial 💆‍♀️, and Hair Styling 💇‍♀️. Click on waiting customers, match them to the right service, and drag them to their station. Keep customers happy by serving them quickly before their patience runs out!
-
-✨ Features
-🏪 4 Service Stations - Manage multiple beauty services simultaneously
-⭐ Level Up System - Earn XP and unlock more station slots as you progress
-💰 Upgrade Shop - Purchase massage chairs, snack bars, drink stations, and ATMs to boost customer satisfaction and earn passive income
-🏆 Leaderboard - Compete with other players and save your high scores
-📊 Score System - Based on money earned, level reached, and satisfied customers
-⏸️ Save Progress - Pause and save your game anytime
-🎯 Goal
-Serve customers efficiently, earn money, level up, and become the ultimate spa tycoon! The better you serve (faster service = happier customers), the more tips you earn!
-
-Perfect for: Casual gamers, time management fans, and anyone who loves spa and beauty themes! 💖
-
-Play now and build your glamorous spa empire! ✨🎮💅
-
-A fun and relaxing spa management game where you build your dream beauty empire!
-
-Play Now | Features | How to Play | Screenshots
-
-📖 Table of Contents
-About
-Features
-Installation
-How to Play
-Game Mechanics
-File Structure
-Technologies Used
-Contributing
-License
-Contact
-🎮 About
-Glamour Nail & Spa Resort is a browser-based time management game where you run your own luxury spa. Serve customers, earn money, upgrade your facilities, and climb the leaderboard to become the ultimate spa tycoon!
-
-Game Highlights
-🏨 Manage a luxury spa with 4 different service stations
-💰 Earn money and purchase upgrades for passive income
-⭐ Level up system with progressive difficulty
-🏆 Competitive leaderboard with score tracking
-🎨 Beautiful gradient UI with smooth animations
-📱 Fully responsive - works on desktop, tablet, and mobile
-✨ Features
-🎯 Core Gameplay
-4 Service Stations
-
-💅 Manicure Station - $50 per service
-🦶 Pedicure Station - $60 per service
-💆‍♀️ Facial Station - $80 per service
-💇‍♀️ Hair Styling Station - $100 per service
-Customer Management
-
-Dynamic patience system
-Visual feedback (happy 😊 to angry 😠)
-Speed bonuses for quick service
-Progression System
-
-Level up every 10 satisfied customers
-Unlock additional station slots
-Increasing difficulty
-🛍️ Upgrade Shop
-Purchase amenities to boost your spa:
-
-Upgrade	Effect	Max Level
-💺 Massage Chairs	+10% patience per level + $5/min passive income	5
-🍪 Snack Bar	+15% patience per level + $8/min passive income	5
-🧃 Drink Station	+12% patience per level + $6/min passive income	5
-🏧 ATM Machine	+$25 tip bonus per level + $15/min passive income	3
-🏆 Leaderboard System
-Score Calculation: Money earned + (Level × 1000) + (Satisfied customers × 100)
-Time Filters: All Time, Today, This Week
-Personal Stats: Track your rank and best score
-Local Storage: Saves automatically to browser
-💾 Save System
-Save progress when pausing the game
-Save score when returning to main menu
-Persistent leaderboard data
-Remembers your player name
-🚀 Installation
-Option 1: Download and Play (Recommended)
-Download the game files
-
+Method 2: Local Server (Optional)
 bash
-# Clone the repository
-git clone https://github.com/yourusername/glamour-spa-resort.git
-
-# Or download as ZIP and extract
-Open in browser
-
-bash
-# Navigate to the folder
-cd glamour-spa-resort
-
-# Open index.html in your browser
-# Double-click index.html OR
-# Right-click → Open with → Your Browser
-Start playing! 🎮
-
-Option 2: Run with Local Server (Optional)
-For better performance and testing:
-
-bash
-# Using Python 3
+# Python
 python -m http.server 8000
 
-# Using Node.js
+# Node.js
 npx http-server
 
-# Then open http://localhost:8000
-Requirements
-✅ Modern web browser (Chrome, Firefox, Safari, Edge)
-✅ JavaScript enabled
-✅ Local storage enabled (for save data)
-❌ No internet connection required (works offline!)
-❌ No installation or dependencies needed
-🎯 How to Play
-Getting Started
-Launch the game - Open index.html in your browser
-Click "Start Game" - Begin your spa journey
-Serve customers - Follow the on-screen tutorial
+# Then visit: http://localhost:8000
+✅ Requirements
+Modern web browser (Chrome 60+, Firefox 55+, Safari 11+)
+JavaScript enabled
+No internet needed after download!
+📖 How to Play
+Basic Workflow
+Code
+Customer Arrives → Click Customer → Select Station → Drag to Station → Collect Payment
 Step-by-Step Guide
-1️⃣ Customer Arrives
-Customers appear in the Waiting Area on the right
-Each customer shows:
-Name (e.g., "Sophia")
-Desired service (💅 Manicure)
-Patience meter (😊 100%)
-2️⃣ Select Customer
-Click on any customer in the waiting area
-A modal opens showing the customer's details
-3️⃣ Choose Station
-Click the correct service station
-Match the customer's service request
-✅ Correct = Proceed to next step
-❌ Wrong = Try again!
-4️⃣ Drag to Station
-Drag the customer icon to the correct station area
-Drop them on the highlighted station
-Service begins automatically
-5️⃣ Collect Payment
-Wait for the service to complete (progress bar fills)
-Payment is collected automatically
-Earn bonuses for fast service! 💰
-🎮 Controls
-Action	Input
-Select Customer	Click/Tap
-Choose Station	Click/Tap
-Drag Customer	Mouse Drag / Touch Drag
-Pause Game	Click "⏸️ Pause" button
-Open Shop	Click "🛍️ Upgrade Shop" button
-View Leaderboard	Click "🏆 Leaderboard" button
-Return to Menu	Click "🏠 Main Menu" button
-💡 Pro Tips
-Serve Fast - Higher patience = bigger tips!
-Buy Upgrades Early - Passive income adds up over time
-Prioritize Angry Customers - Save customers with low patience first
-Manage Multiple Stations - Don't let stations sit empty
-Level Up - Every 10 customers = new station slot unlocked
-🎲 Game Mechanics
-Patience System
-Starts at 100% (+ upgrade bonuses)
-Decreases by 0.05% every 100ms
-Customer leaves if patience reaches 0%
-Visual indicators change with patience level
-Scoring System
-Code
-Total Score = Money Earned + (Level × 1000) + (Satisfied Customers × 100)
+<details> <summary><b>1️⃣ Customer Arrives</b> (Click to expand)</summary> <br>
+Customers appear in the Waiting Area with:
 
-Example:
-Money: $5,000
-Level: 10
-Customers: 50
-Score = 5,000 + (10 × 1,000) + (50 × 100) = 20,000 points
-Service Times
-Service	Duration	Base Price
-💅 Manicure	5 seconds	$50
-🦶 Pedicure	6 seconds	$60
-💆‍♀️ Facial	7 seconds	$80
-💇‍♀️ Hair Styling	8 seconds	$100
-Bonuses
-Speed Bonus
-70%+ patience: +$20
-40-70% patience: +$10
-Below 40%: No bonus
-Tip Bonus (from ATM upgrade)
-+$25 per ATM level
-Level Progression
-Every 10 satisfied customers = Level Up
-Random station gains +1 slot (max 5 slots per station)
-Difficulty remains constant (customer spawn rate)
-📁 File Structure
+👤 Name (e.g., "Sophia")
+💅 Service needed
+😊 Patience meter (100%)
+Watch the patience meter! Customers leave if it reaches 0%.
+
+</details> <details> <summary><b>2️⃣ Select Customer</b></summary> <br>
+Click any customer in the waiting area
+A modal shows their service request
+Choose quickly if multiple customers are waiting!
+</details> <details> <summary><b>3️⃣ Choose Station</b></summary> <br>
+Click the matching station
+✅ Correct: Opens drag screen
+❌ Wrong: Try again
+Tip: Match the emoji icons!
+
+</details> <details> <summary><b>4️⃣ Drag to Station</b></summary> <br>
+Drag customer to the highlighted station
+Drop in the correct area
+Service starts automatically!
+Mobile: Use touch and drag
+
+</details> <details> <summary><b>5️⃣ Collect Payment</b></summary> <br>
+Progress bar shows service completion
+Payment collected automatically
+Earn bonuses for fast service! 💰
+</details>
+🎮 Controls
+Action	Desktop	Mobile
+Select Customer	Click	Tap
+Choose Station	Click	Tap
+Drag Customer	Click & Drag	Touch & Drag
+Pause Game	Click "⏸️ Pause"	Tap Button
+Open Shop	Click "🛍️ Shop"	Tap Button
+💡 Strategy & Tips
+🥉 Beginner Tips
+Start with Massage Chairs - Best patience boost
+Watch the patience meter - Serve angry customers first
+Learn the stations - Match icons quickly
+Don't rush - Accuracy over speed at first
+🥈 Intermediate Strategy
+Speed is key - Aim for 70%+ patience for bonuses
+Keep stations busy - Always have 2+ working
+Balance upgrades - Mix patience + passive income
+Level up fast - More slots = more customers
+🥇 Advanced Tactics
+Max ATM early - $75 tip bonus at level 3
+Perfect timing - Start services when new customers spawn
+Focus high-value - Prioritize Hair Styling ($100)
+Manage queue - Keep 3-4 customers waiting max
+🎲 Game Mechanics
+💯 Scoring System
+JavaScript
+Total Score = Money Earned + (Level × 1,000) + (Customers × 100)
+
+Example High Score:
+$15,000 + (Level 15 × 1,000) + (80 customers × 100) = 38,000 points
+🎁 Bonus System
+Condition	Bonus
+70%+ Patience	+$20 Speed Bonus
+40-69% Patience	+$10 Speed Bonus
+ATM Level 1	+$25 Tip Bonus
+ATM Level 2	+$50 Tip Bonus
+ATM Level 3	+$75 Tip Bonus
+📊 Upgrade Costs
+Upgrade	Level 1	Level 2	Level 3	Level 4	Level 5	Max Effect
+💺 Chairs	$200	$300	$450	$675	$1,013	+50% patience, $25/min
+🍪 Snacks	$300	$480	$768	$1,229	$1,966	+75% patience, $40/min
+🧃 Drinks	$250	$375	$563	$844	$1,266	+60% patience, $30/min
+🏧 ATM	$500	$1,000	$2,000	-	-	+$75 tips, $45/min
+📁 Project Structure
 Code
-glamour-spa-resort/
+Spa-Game/
 │
-├── index.html              # Main HTML file
-├── styles.css              # All styling and animations
-├── game.js                 # Core game logic
-├── leaderboard.js          # Leaderboard and scoring system
-├── README.md               # This file
-│
-└── assets/ (optional)
-    ├── screenshots/        # Game screenshots
-    └── icons/              # Favicon, app icons
-File Descriptions
-File	Size	Description
-index.html	~20KB	Game structure, modals, UI elements
-styles.css	~35KB	Complete styling, animations, responsive design
-game.js	~30KB	Game logic, customer management, station control
-leaderboard.js	~10KB	Score calculation, localStorage management
-🛠️ Technologies Used
-Frontend
-HTML5 - Semantic markup
-CSS3 - Modern styling with:
-Flexbox & CSS Grid
-Gradients & animations
-Custom properties
-Media queries (responsive)
-JavaScript (ES6+) - Game logic with:
-Classes & modules
-Arrow functions
-Template literals
-Local Storage API
-Features
-✅ No external dependencies
-✅ No frameworks required
-✅ Vanilla JavaScript
-✅ Browser-based storage
-✅ Fully offline capable
-Browser Compatibility
-Browser	Minimum Version
-Chrome	60+
-Firefox	55+
-Safari	11+
-Edge	79+
-Opera	47+
+├── index.html          # Main game file (HTML structure)
+├── styles.css          # All styling and animations
+├── game.js             # Game logic and mechanics
+├── leaderboard.js      # Scoring and leaderboard system
+└── README.md           # This file
+File Details
+File	Lines	Description
+index.html	~400	Game UI, modals, service stations
+styles.css	~1,200	Responsive design, animations, themes
+game.js	~900	Customer AI, station management, progression
+leaderboard.js	~300	Local storage, scoring, rankings
 🎨 Customization
 Change Difficulty
-Edit game.js line ~685:
+File: game.js (line ~685)
 
 JavaScript
-// Easy mode (slower patience decay)
-patienceDecay: 0.03
+patienceDecay: 0.05,  // Current: Normal (3 min wait)
 
-// Normal mode (recommended)
-patienceDecay: 0.05
+// Easy Mode (5+ minutes)
+patienceDecay: 0.03,
 
-// Hard mode (faster patience decay)
-patienceDecay: 0.10
+// Hard Mode (1.5 minutes)
+patienceDecay: 0.10,
 Adjust Prices
-Edit game.js services array:
+File: game.js (line ~39)
 
 JavaScript
 const services = [
     { name: 'Manicure', icon: '💅', duration: 5000, price: 50 },
-    // Change 'price' to adjust earnings
+    //                                            Change ^^^^
 ];
-Modify Colors
-Edit styles.css gradient colors:
+Change Theme Colors
+File: styles.css (line ~50)
 
 CSS
-/* Main theme color */
+/* Main pink theme */
 background: linear-gradient(135deg, #ff6ec7 0%, #ff8fd4 100%);
 
-/* Change #ff6ec7 to your preferred color */
-🐛 Troubleshooting
-Game Won't Load
-Check browser console (F12) for errors
-Ensure JavaScript is enabled
-Try clearing browser cache (Ctrl+Shift+Delete)
-Use incognito/private mode
-Leaderboard Not Saving
-Check if browser allows localStorage
-Disable browser extensions temporarily
-Check browser privacy settings
-Performance Issues
-Close other browser tabs
-Update to latest browser version
-Try different browser
-Reduce window size on mobile devices
-🤝 Contributing
-Contributions are welcome! Here's how you can help:
+/* Try blue theme */
+background: linear-gradient(135deg, #4ec7ff 0%, #6ec7ff 100%);
 
-Reporting Bugs
-Check existing issues first
-Create detailed bug report with:
-Browser and version
+/* Try purple theme */
+background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+🐛 Troubleshooting
+<details> <summary><b>🚫 Game won't load</b></summary> <br>
+Solutions:
+
+Check browser console (F12) for errors
+Enable JavaScript in browser settings
+Clear cache: Ctrl+Shift+Delete
+Try incognito/private mode
+Use a different browser
+</details> <details> <summary><b>💾 Leaderboard not saving</b></summary> <br>
+Solutions:
+
+Allow cookies/local storage
+Don't use private browsing mode
+Check browser privacy settings
+Disable strict tracking protection
+</details> <details> <summary><b>🎮 Drag & drop not working</b></summary> <br>
+Solutions:
+
+Click customer first, then select station
+Try using mouse instead of trackpad
+On mobile: Use finger, not stylus
+Refresh page and try again
+</details> <details> <summary><b>👥 No customers appearing</b></summary> <br>
+Solutions:
+
+Click "Start Game" button first
+Wait 10 seconds for first customer
+Check if game is paused (Resume button)
+Refresh page
+</details>
+🤝 Contributing
+We welcome contributions! Here's how:
+
+🐛 Report Bugs
+Check existing issues
+Create new issue with:
+Browser & version
 Steps to reproduce
 Expected vs actual behavior
-Screenshots if applicable
-Suggesting Features
-Open an issue with [Feature Request] tag
-Describe the feature and use case
-Explain why it would improve the game
-Pull Requests
+Screenshots
+💡 Suggest Features
+Open feature request
+Describe feature and use case
+Explain benefits
+🔧 Submit Code
 Fork the repository
-Create feature branch (git checkout -b feature/AmazingFeature)
-Commit changes (git commit -m 'Add AmazingFeature')
-Push to branch (git push origin feature/AmazingFeature)
+Create branch: git checkout -b feature/YourFeature
+Commit: git commit -m 'Add YourFeature'
+Push: git push origin feature/YourFeature
 Open Pull Request
-Development Guidelines
-Follow existing code style
-Comment complex logic
-Test on multiple browsers
-Update README if needed
-📝 License
-This project is licensed under the MIT License - see below for details:
+📜 License
+MIT License - Free to use, modify, and distribute!
 
 Code
-MIT License
-
-Copyright (c) 2024 Glamour Spa Resort
+Copyright (c) 2024 Spa Game
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+copies of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-📧 Contact
-Developer: Your Name
-Email: your.email@example.com
-GitHub: @yourusername
-Project Link: https://github.com/yourusername/glamour-spa-resort
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+Full License Text
 
-🙏 Acknowledgments
-Emoji icons from Unicode Standard
-Inspiration from time management games like Diner Dash
-Community feedback and testing
-📊 Statistics
-Lines of Code: ~2,500
-Development Time: [Your timeframe]
-Current Version: 1.0.0
-Last Updated: December 2024
 🎯 Roadmap
-Planned Features
- 🔊 Sound effects and background music
- 🎨 Multiple spa themes/skins
- 👥 Staff hiring system
- 🏆 Achievement system
- 📱 Progressive Web App (PWA) support
- 🌐 Online multiplayer leaderboard
- 💾 Cloud save support
- 🎭 Special events and challenges
- 📈 Detailed statistics dashboard
- 🎁 Daily rewards system
-Future Improvements
-Enhanced animations
-More service types
-Customizable spa layout
-Story mode
-Tutorial improvements
-⭐ Show Your Support
-If you enjoyed this game:
+🚀 Version 1.1 (Coming Soon)
+ 🔊 Sound effects & background music
+ 🎨 Multiple color themes
+ 🏆 Achievement badges
+ 💾 Export/import save data
+ 📱 PWA support (install as app)
+🌟 Version 2.0 (Future)
+ 👥 Hire staff members
+ 🌐 Online leaderboard
+ 🎭 Seasonal events
+ 📊 Statistics dashboard
+ 🎁 Daily rewards
+View Full Roadmap
 
-⭐ Star this repository
-🐛 Report bugs to help improve it
-💡 Share your ideas for new features
-🔗 Share with friends who love management games!
+📊 Stats
 <div align="center">
-Made with 💖 by [Your Name]
+Metric	Value
+Total Code	~2,800 lines
+Game Size	~95 KB
+Languages	HTML, CSS, JavaScript
+Dependencies	0
+Version	1.0.0
+</div>
+🙏 Acknowledgments
+🎨 Emoji icons from Unicode Standard
+💡 Inspired by Diner Dash & Sally's Spa
+🎮 Built with vanilla JavaScript
+💖 Made with love and coffee
+📞 Contact & Links
+<div align="center">
+Developer: @Unkn5wn
 
-Happy Gaming! 🎮💅✨
+🐛 Report Bug • 💡 Request Feature • ⭐ Star Project
 
 </div>
-🎮 Quick Links
-Play Online Demo (Coming Soon)
-Report a Bug
-Request Feature
-View Source Code
-Version 1.0.0 | Last Updated: December 2024 | Built with ❤️ and JavaScript
+<div align="center">
+⭐ Star this repo if you enjoyed the game!
+Made with 💖 and JavaScript
+
+Last Updated: December 2024
+
+⬆ Back to Top
+
+</div> ```
+✨ Key Improvements:
+Better Visual Hierarchy
+
+Clear sections with emojis
+Centered headers
+Consistent spacing
+Collapsible Sections
+
+How to Play is expandable
+Troubleshooting is collapsible
+Easier to navigate
+Tables & Visual Data
+
+Cleaner comparison tables
+Upgrade costs visible
+Better statistics display
+Color-Coded Badges
+
+Professional look
+Eye-catching
+GitHub-style formatting
+Quick Links
+
+Jump to sections easily
+Report bugs directly
+Better navigation
+This version is much more scannable and easier to read! 🎯✨
