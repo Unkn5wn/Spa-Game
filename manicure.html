@@ -2,108 +2,347 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Manicure Game</title>
+  <title>Manicure Master - Contained Layout</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:600,700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: sans-serif; text-align: center; background: #fbeff7;}
-    .hand { display: flex; justify-content: center; margin-top: 40px; }
-    .finger {
-      width: 60px; height: 170px; margin: 0 8px; background: #ffe0c0;
-      border-radius: 30px 30px 40px 40px / 40px 40px 100px 100px;
-      position: relative; box-shadow: 0 2px 10px #0002;
-      display: flex; align-items: flex-end; justify-content: center;
+    html, body {
+      height: 100vh;
+      width: 100vw;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #fcebeb 0%, #fbe4fb 100%);
     }
-    .nail {
-      width: 40px; height: 40px; background: #fff; border-radius: 20px 20px 25px 25px / 20px 20px 40px 40px;
-      border: 2px solid #d1b080; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
-      box-shadow: 0 1px 8px #0002;
-      transition: background 0.3s, border 0.3s;
-      cursor: pointer;
+    body {
+      font-family: 'Quicksand', 'Segoe UI', Arial, sans-serif;
+      color: #3a1830;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      min-height: 100vh;
+      overflow: hidden;
+      justify-content: flex-start;
     }
-    .palette { margin: 30px auto 10px; display: flex; justify-content: center; }
+    #scoreBoard {
+      display: flex; gap: 13px; flex-wrap: wrap;
+      border-radius: 15px;
+      background: rgba(251, 225, 252, 0.87);
+      margin: 13px auto 0 auto;
+      padding: 7px 18px 7px 17px;
+      font-size: 0.99em;
+      max-width: 600px;
+      border: 2px solid rgba(183,160,254,0.10);
+      position: relative; z-index: 99;
+    }
+    #levelUnlocks { font-size:0.95em; color:#b679fe;}
+    .unlocked-level { color:#12cb72;}
+    .locked-level { color:#999;}
+    #gameScreen {
+      width: 100vw;
+      max-width: 600px;
+      margin: 12px auto 0 auto;
+      padding: 7px 0 3px 0;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.96);
+      position:relative;
+      flex: 1 1 390px;
+      display: flex; flex-direction: column; align-items:center;
+      justify-content: flex-start;
+      min-height: 0;
+    }
+    #customerArea {
+      width: 100%;
+      display: flex; flex-direction: row; justify-content:center; align-items: center;
+      min-height:60px; height:70px; margin-bottom:4px;
+    }
+    .customer-outer {
+      display: flex; flex-direction: row; align-items:center; justify-content:center; width:100%;height:auto;
+      position: static;
+    }
+    .customer-emoji {
+      font-size:54px; line-height:1;
+      filter: drop-shadow(0 1px 4px #fff8);
+      opacity:1; position:relative; z-index:5;
+      margin: 0 8px 0 0;
+    }
+    .bubble {
+      margin-left:9px; margin-right:5px; margin-top:0; margin-bottom:0;
+      background: linear-gradient(99deg,#fffafb 70%,#f6dcf9 100%);
+      padding: 5px 13px 5px 10px;
+      border-radius:1em;
+      font-size: 13px;
+      color: #4b1457;
+      max-width: 170px; min-width: 24px; white-space:normal;
+      border: 1px solid #e9c2fbac;
+      opacity: 1;
+      pointer-events: none;
+      position: relative;
+      text-align:left;
+    }
+    .bubble-show { opacity: 1 !important; }
+    .bubble::after {
+      content: '';
+      position: absolute;
+      left: -12px; top: 18px;
+      border-width: 7px 13px 7px 0;
+      border-style: solid;
+      border-color: transparent #e9c2fb7e transparent transparent;
+      filter: blur(.5px);
+    }
+    .palette {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.8);
+      border-radius: 15px;
+      box-shadow: 0 2px 7px #dfbcffc4;
+      padding: 11px 0 11px 0;
+      margin: 18px auto 5px auto;
+      min-height: 54px;
+      width: 100%;
+      max-width: 520px;
+      gap: 18px 13px;
+    }
     .color-btn {
-      width: 38px; height: 38px; margin: 0 8px; border: 2px solid #bbb; border-radius: 50%; cursor: pointer;
-      display: inline-block; transition: border 0.2s; box-shadow:0 1px 6px #0002;
+      width: 45px; height: 45px;
+      border: 2px solid #dacfeb; border-radius: 50%; cursor: pointer;
+      transition: border .11s, box-shadow .11s, transform 0.11s;
+      box-shadow: 0 1px 5px #dacceb6e, 0 1px 6px #fbd0ffe0 inset;
+      display: flex; align-items: center; justify-content: center; font-size:19px; position:relative;
+      filter: drop-shadow(0 0 1.3px #fff9) brightness(1.005);
     }
-    .color-btn.selected { border: 3px solid #777; }
-    h3, #status { margin-top:18px;}
-    #resetBtn { margin-left: 16px; padding: 6px 18px; border-radius: 8px; border: 1px solid #bbb; background: #fff0fa; cursor: pointer; }
+    .color-btn.selected { border: 2.2px solid #31316a; box-shadow: 0 1px 8px #a17bf1bd, 0 2px 5px #fff inset;}
+    .color-btn.glitter { border-color: #f5e752;box-shadow: 0 0 5px #ffe2fc, 0 3px 9px #fff;
+      background: radial-gradient(circle at 75% 18%, #fffbe3 5%,#ffe07a 25%, #ffe3fd 50%);
+      position:relative;}
+    .color-btn.glitter::after { content:"✨"; font-size:19px; position:absolute; right:2px; bottom:0; pointer-events:none;
+      mix-blend-mode: lighten;text-shadow: 0 0 4px #fff; filter:brightness(1.2);}
+    .color-btn.locked { filter: grayscale(0.9) brightness(0.97); opacity:0.5;}
+    .hand {
+      min-height: 140px;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto 0 auto;
+      padding: 22px 0 22px 0;
+      background: rgba(255,255,255,0.12);
+      border-radius: 16px;
+      box-shadow: 0 2px 14px #e5d7f4b8;
+      display: flex; justify-content: center; gap:43px;
+      align-items: flex-end;
+    }
+    .finger {
+      width: 72px; height: 180px; margin: 0 8px;
+      background: linear-gradient(102deg, #ffe8d1 10%, #ffe0e2 85%);
+      border-radius: 24px 21px 30px 25px / 30px 18px 70px 48px;
+      position: relative; box-shadow: 0 2px 13px #c2c0ca1e;
+      display: flex; align-items: flex-end; justify-content: center; margin-bottom: 12px;
+    }
+    .nail { width: 48px; height: 48px; position: absolute;
+      left: 50%; transform: translateX(-50%); top: 14px;
+      background: #fff;
+      cursor: pointer; transition: background 0.2s, border 0.15s;
+      z-index: 1; display: flex; align-items: center; justify-content: center;  overflow: visible;
+      border-radius:16.2px 19.1px 23.7px 18.7px/23.6px 18.3px 31.5px 22.3px;
+      border: 2.3px solid #d1b080;
+      box-shadow:0 3px 9px #e397df48, 0 0px 6px #fff inset;
+      background: linear-gradient(105deg,#fff6fa 60%,#fbe0fa 100%);
+      min-width: 16px;}
+    .nail.round     { border-radius: 22px 17px 23px 22px / 27px 17px 32px 21px; }
+    .nail.square    { border-radius: 5px 5px 5px 5px / 18px 18px 16px 16px; border: 2.3px solid #ad9575; }
+    .nail.pointy    { clip-path: polygon(51% 0%, 92% 94%, 8% 94%); border: 2.3px solid #9a736f; }
+    .nail.coffin    { border-radius: 9px 8px 2.7px 8px / 19px 5px 2px 19px; border: 2.3px solid #c1aaa1;}
+    .design { position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:5;}
+    .brush { width: 36px; height: 36px; position: absolute; z-index: 10; pointer-events: none;
+      opacity:0; transition:opacity .05s; filter: drop-shadow(0 1px 2px #f7e2cb99);}
+    #order {margin:7px 0 4px; max-width:240px;padding:0 5px; border-radius: 11px; background:linear-gradient(99deg,#ffe5fc 93%,#ffe2ef 100%); box-shadow: 0 1px 4px #fae0f5ad; font-size:1.02em; font-weight:600; display:inline-block; border:1.2px solid #f8caeb5e;}
+    #status {margin:8px auto 3px; min-height:13px; font-size:0.98em; font-weight:600;}
+    #timer { font-weight: bold; color:#993c47; font-size: 1em; background: #ffeaea85; border-radius: 4px;padding:3px 7px 2px 7px;margin-top:4px; box-shadow: 0 1px 5px #feaab52b; display:inline-block; min-width:32px; border:1px solid #f8bfc1ad;}
+    .button { padding: 7px 18px; border-radius: 12px; border: 1.4px solid #efaaff; background: linear-gradient(94deg,#fed8fc 40%,#ffffff 105%); color:#61206b; font-weight:700; font-family:inherit; font-size:1em; letter-spacing:0.8px; box-shadow:0 2px 9px #f0d1f666; margin-top:9px;margin-left:10px; transition: all 0.15s; cursor: pointer; outline: none; }
+    .button:hover, .button:focus {background: linear-gradient(99deg,#ffd6e4 46%,#fff 130%); color: #b53a9a; box-shadow:0 2px 9px #e4c6faf5; transform: translateY(-2px) scale(1.03);}
+    @media (max-width:650px){
+      #gameScreen,.palette,.hand { max-width: 98vw;}
+      .palette, .hand {width: 97vw;}
+      .finger{width: 44px; height: 110px;}
+      .nail{width:28px;height:28px;}
+      .customer-emoji{font-size:36px;}
+      .bubble{font-size:11px;max-width: 99px;}
+    }
   </style>
 </head>
 <body>
-  <h2>Manicure Game</h2>
-  <h3 id="prompt"></h3>
-  <div class="palette" id="palette"></div>
-  <div class="hand" id="hand"></div>
-  <div>
-    <span id="status"></span>
-    <button id="resetBtn">Reset</button>
+  <div id="scoreBoard">
+    <div><b>Lvl:</b> <span id="scoreLevel">1</span></div>
+    <div><b>Cust:</b> <span id="scoreCustomers">0</span></div>
+    <div><b>$</b><span id="totalMoney">0</span></div>
+    <div id="levelUnlocks">
+      Glitter: <span id="glitter3" class="locked-level">🔒3</span>
+      <span id="glitter5" class="locked-level">🔒5</span>
+      <span id="glitter10" class="locked-level">🔒10</span>
+      <span id="glitter15" class="locked-level">🔒15</span>
+    </div>
   </div>
+  <div class="screen active" id="gameScreen">
+    <div id="customerArea">
+      <div class="customer-outer" id="customerOuter"></div>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;margin-top:2px;">
+      <div style="text-align:left; margin-right:10px;">
+        <div id="order"></div>
+        <span id="timer"></span>
+      </div>
+      <button class="button" id="resetBtn">Next</button>
+    </div>
+    <div class="palette" id="palette"></div>
+    <div class="hand" id="hand"></div>
+    <div id="status"></div>
+  </div>
+  <svg id="brushSVG" class="brush" viewBox="0 0 44 46" style="display:none;">
+    <ellipse cx="25" cy="29" rx="11" ry="10" fill="#e4a077" />
+    <rect x="15" y="8" width="14" height="20" rx="5" fill="#9c5e37"/>
+    <rect x="17" y="0" width="10" height="8" rx="2.8" fill="#222"/>
+    <rect x="17" y="13" width="10" height="8" rx="4" fill="currentColor"/>
+  </svg>
   <script>
-    // Config
+    // --- Game logic below ---
+    const CUSTOMER_EMOJIS = ["🧑", "👩", "👨", "👵", "👴","👩‍🦰","👨‍🦰"];
+    const ARRIVAL_COMMENTS = ["Hi! Make my nails look amazing?","Excited for a new style!","Special manicure please!","Fresh look, please.","Make them fabulous 💅"];
+    const WAITING_COMMENTS = ["Take your time...","Love these colors!","I'm ready for nails!","Fav shape!","Can't wait!"];
+    const SUCCESS_COMMENTS = ["Love them! Thanks!","Gorgeous! 😍","Glitter! So pretty!","You nailed it! 🌟"];
+    const GLITTER_SUCCESS_COMMENTS = ["Perfect glitter! ✨","That sparkle!!","You're amazing!","Best manicure 💖"];
+    const FAIL_COMMENTS = ["Oh no, not right...","Too slow, gotta run!","Maybe next time...","Hoped for something else."];
     const NUM_FINGERS = 5;
     const COLORS = [
-      { name: 'Red', value: '#ff3040' },
-      { name: 'Blue', value: '#4070ff' },
-      { name: 'Green', value: '#45e75a' },
-      { name: 'Purple', value: '#9e34f8' },
-      { name: 'Orange', value: '#ffa825' },
-      { name: 'Pink', value: '#ff69b4' },
+      { name: 'Red', value: '#ff3040' }, { name: 'Blue', value: '#4070ff' }, { name: 'Green', value: '#45e75a' }, 
+      { name: 'Purple', value: '#9e34f8' }, { name: 'Orange', value: '#ffa825' }, { name: 'Pink', value: '#ff69b4' }, 
       { name: 'Yellow', value: '#fff930' }
     ];
-    // Pick 1 random color as the "order"
-    let promptColor;
-    let selectedColor = COLORS[0].value;
-    let nails = []; // stores painted color per nail
+    const NAIL_SHAPES = ['round', 'square', 'pointy', 'coffin'];
+    const NAIL_SHAPE_LABELS = { round:"Round",square:"Square",pointy:"Pointy",coffin:"Coffin"};
+    const NAIL_DESIGNS = ['none', 'stripes', 'dots'];
+    const NAIL_DESIGN_LABELS = { none: "No design", stripes:"Stripes", dots:"Dots"};
+    const GLITTER_LEVELS = [3,5,10,15];
+    const GLITTER_POLISHES = [ { name: 'Glitter Gold',  value:'#ffe07a', glitter: true }, { name: 'Glitter Pink',  value:'#fe60e6', glitter: true }, { name: 'Glitter Blue',  value:'#46ecff', glitter: true }, { name: 'Glitter Multi', value:'#ab7aff', glitter:true} ];
+    const TIME_PER_CUSTOMER = 35;
+    let order = { shape:'round', design:'none', color: COLORS[0] }, selectedColor = COLORS[0].value, selectedIsGlitter = false, nails = [];
+    let isAnimating = false, timer = null, timeLeft = TIME_PER_CUSTOMER, totalEarned = 0, curLevel = 1, customersServed = 0, glitterUnlocked = 0;
+    let customerOuter = document.getElementById('customerOuter'), showingCustomerBubble = null, lastCustEmoji = null, hand = document.getElementById('hand'), palette = document.getElementById('palette'), status = document.getElementById('status'), timerSpan = document.getElementById('timer'), orderDiv = document.getElementById('order'), totalMoneySpan = document.getElementById('totalMoney'), resetBtn = document.getElementById('resetBtn'), brushSVG = document.getElementById('brushSVG'), scoreLevel = document.getElementById('scoreLevel'), scoreCustomers = document.getElementById('scoreCustomers'), levelUnlocks = GLITTER_LEVELS.map(lvl => document.getElementById('glitter'+lvl)), waitingBubbleTimer = null;
 
-    function setupGame() {
-      // Pick a random prompt color
-      promptColor = COLORS[ Math.floor(Math.random() * COLORS.length)];
-      document.getElementById('prompt').innerHTML = `Paint all nails <span style="color:${promptColor.value};">${promptColor.name}</span>!`;
-
-      // Create color palette
-      const palette = document.getElementById('palette');
-      palette.innerHTML = '';
-      COLORS.forEach(col => {
-        const btn = document.createElement('div');
-        btn.className = 'color-btn' + (col.value === selectedColor ? ' selected' : '');
-        btn.style.background = col.value;
-        btn.title = col.name;
-        btn.onclick = () => {
-          selectedColor = col.value;
-          document.querySelectorAll('.color-btn').forEach(c => c.classList.remove('selected'));
-          btn.classList.add('selected');
-        };
-        palette.appendChild(btn);
-      });
-
-      // Create fingers and nails
-      nails = Array(NUM_FINGERS).fill('');
-      const hand = document.getElementById('hand');
-      hand.innerHTML = '';
-      for (let i = 0; i < NUM_FINGERS; i++) {
-        const finger = document.createElement('div'); finger.className = 'finger';
-        const nail = document.createElement('div'); nail.className = 'nail'; nail.dataset.idx = i;
-        nail.onclick = () => {
-          nails[i] = selectedColor;
-          nail.style.background = selectedColor;
-          nail.style.border = (selectedColor === '#fff930') ? '2px solid #888' : '2px solid #d1b080';
-          checkWin();
-        };
-        finger.appendChild(nail);
-        hand.appendChild(finger);
-      }
-      document.getElementById('status').textContent = '';
+    function randomChoice(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
+    function uniqueRandomChoice(arr, notValue) { let c; do { c = randomChoice(arr); } while (notValue && c.value === notValue.value); return c; }
+    function computeLevel(n) { return 1 + Math.floor(n/10); }
+    function updateScoreBoard() {
+      scoreCustomers.textContent = customersServed; scoreLevel.textContent = curLevel; totalMoneySpan.textContent = totalEarned;
+      GLITTER_LEVELS.forEach((lvl,i)=>{if(curLevel>=lvl){levelUnlocks[i].textContent='✨'+lvl;levelUnlocks[i].className='unlocked-level';} else {levelUnlocks[i].textContent='🔒'+lvl;levelUnlocks[i].className='locked-level';}});
     }
-    function checkWin() {
-      if(nails.every(color => color === promptColor.value)) {
-        document.getElementById('status').textContent = "Great job! All nails are painted correctly! 💅";
-      } else {
-        document.getElementById('status').textContent = '';
-      }
+    function unlockedGlitterLevels(){return GLITTER_LEVELS.filter(lvl=>curLevel>=lvl).length;}
+    function newCustomerOrder(){const glitterNum=unlockedGlitterLevels();let pool=COLORS.slice();if(glitterNum>0)pool=pool.concat(GLITTER_POLISHES.slice(0,glitterNum));let prevOrderColor=order.color;let color=uniqueRandomChoice(pool,prevOrderColor);return{shape:randomChoice(NAIL_SHAPES),design:randomChoice(NAIL_DESIGNS),color:color};}
+    function showCustomer(){customerOuter.innerHTML='';let custEmoji;do{custEmoji=CUSTOMER_EMOJIS[Math.floor(Math.random()*CUSTOMER_EMOJIS.length)];}while(custEmoji===lastCustEmoji&&CUSTOMER_EMOJIS.length>1);lastCustEmoji=custEmoji;const custDiv=document.createElement('div');custDiv.className="customer-emoji";custDiv.textContent=custEmoji;customerOuter.appendChild(custDiv);setTimeout(()=>showCustomerBubble(randomChoice(ARRIVAL_COMMENTS)),250);}
+    function animateCustomerOutcome(success,isGlitter){
+      let cust=customerOuter.querySelector('.customer-emoji');if(!cust)return;
+      showCustomerBubble(success?randomChoice(isGlitter?GLITTER_SUCCESS_COMMENTS:SUCCESS_COMMENTS):randomChoice(FAIL_COMMENTS));
     }
-    document.getElementById('resetBtn').onclick = setupGame;
-
-    // Initialize
+    function showCustomerBubble(text){
+      hideCustomerBubble();
+      let cust=customerOuter.querySelector('.customer-emoji');if(!cust)return;
+      let oldBubble=customerOuter.querySelector('.bubble');if(oldBubble)oldBubble.remove();
+      const bubble=document.createElement('div');bubble.className='bubble bubble-show';bubble.textContent=text;
+      customerOuter.appendChild(bubble);showingCustomerBubble=bubble;
+      setTimeout(()=>{ if(bubble) bubble.classList.add('bubble-show'); },50);
+      if(text.length<30) setTimeout(()=> bubble.classList.remove('bubble-show'),1200);
+    }
+    function hideCustomerBubble(){if(showingCustomerBubble){showingCustomerBubble.classList.remove('bubble-show');showingCustomerBubble=null;}}
+    function scheduleWaitingBubble(){clearTimeout(waitingBubbleTimer);waitingBubbleTimer=setTimeout(()=>{showCustomerBubble(randomChoice(WAITING_COMMENTS));scheduleWaitingBubble();},1600+Math.random()*1200);}
+    function cancelWaitingBubble(){clearTimeout(waitingBubbleTimer);}
+    function setupGame(){
+      glitterUnlocked=unlockedGlitterLevels();
+      updateScoreBoard();
+      order=newCustomerOrder();
+      timeLeft=TIME_PER_CUSTOMER;
+      nails=Array(NUM_FINGERS).fill().map(_=>({color:'',design:order.design}));
+      selectedColor=order.color.value;selectedIsGlitter=!!order.color.glitter;showOrder();drawPalette();drawHand();status.textContent='';isAnimating=false;
+      resetBtn.disabled=true;showCustomer();scheduleWaitingBubble();startTimer();
+    }
+    function showOrder(){
+      orderDiv.innerHTML=`<strong>Order:</strong><br><b>${NAIL_SHAPE_LABELS[order.shape]}</b>, <b>${NAIL_DESIGN_LABELS[order.design]}</b>, <span style="color:${order.color.value}"><b>${order.color.name}${order.color.glitter?' ✨':''}</b></span>`;
+      timerSpan.textContent=`${timeLeft}s`;timerSpan.style.color=(timeLeft<=7)?"#c33":"#993c47";
+    }
+    function drawPalette(){
+      palette.innerHTML='';COLORS.forEach(c=>{const btn=makeColorBtn(c,false,false);palette.appendChild(btn);});
+      for(let i=0;i<GLITTER_POLISHES.length;++i){const unlocked=glitterUnlocked>i;const btn=makeColorBtn(GLITTER_POLISHES[i],true,!unlocked);palette.appendChild(btn);}
+      setTimeout(()=>{let found=Array.from(document.querySelectorAll('.color-btn')).find(b=>b.dataset.color===order.color.value);if(found)found.classList.add("selected");});
+    }
+    function makeColorBtn(colorObj,isGlitter,locked){
+      const btn=document.createElement('div');
+      btn.className='color-btn'+(isGlitter?' glitter':'')+(locked?' locked':'');
+      btn.style.background=colorObj.value;
+      btn.title=colorObj.name+(locked?' (Lvl '+GLITTER_LEVELS[GLITTER_POLISHES.indexOf(colorObj)]+')':'');
+      btn.dataset.color=colorObj.value;btn.setAttribute("tabindex",locked?"-1":"0");
+      if(isGlitter)btn.innerHTML='';
+      if(!locked)btn.onclick=()=>{selectedColor=colorObj.value;selectedIsGlitter=!!colorObj.glitter;document.querySelectorAll('.color-btn').forEach(c=>c.classList.remove('selected'));btn.classList.add('selected');};
+      return btn;
+    }
+    function drawHand(){
+      hand.innerHTML='';for(let i=0;i<NUM_FINGERS;i++){
+        const finger=document.createElement('div');finger.className='finger';const nail=document.createElement('div');nail.className=`nail ${order.shape}`;nail.dataset.idx=i;
+        if(order.design!=='none'){const designDiv=document.createElement('div');designDiv.className="design";nail.appendChild(designDiv);}
+        nail.onclick=()=>{if(isAnimating||timeLeft<=0)return;animateBrushPaint(nail,selectedColor,()=>{paintNail(i,nail,selectedColor);});};
+        finger.appendChild(nail);hand.appendChild(finger);}
+    }
+    function paintNail(idx,nailEl,colorValue){
+      nailEl.style.background=colorValue;
+      nailEl.style.borderColor=(colorValue==='#fff930')?'#888':(order.shape==='square'?'#ad9575':(order.shape==='pointy'?'#9a736f':(order.shape==='coffin'?'#c1aaa1':'#d1b080')));
+      nails[idx].color=colorValue;if(order.design!=='none'){drawDesign(nailEl,order.design,colorValue);}checkWin();
+    }
+    function drawDesign(nailEl,type,baseColor){
+      const designDiv=nailEl.querySelector('.design');
+      if(!designDiv)return;designDiv.innerHTML='';
+      if(type==='dots'){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('width','48');svg.setAttribute('height','48');
+        for(let i=0;i<3;i++){const cx=16+((i%2)*19),cy=11+(i*11.2);const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');dot.setAttribute('cx',cx);dot.setAttribute('cy',cy);dot.setAttribute('r','4');dot.setAttribute('fill',contrastingColor(baseColor));svg.appendChild(dot);}designDiv.appendChild(svg);}
+      else if(type==='stripes'){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('width','48');svg.setAttribute('height','48');
+        for(let i=0;i<2;i++){const line=document.createElementNS('http://www.w3.org/2000/svg','rect');line.setAttribute('x',10+i*14);line.setAttribute('y','0');line.setAttribute('width','5');line.setAttribute('height','48');line.setAttribute('fill',contrastingColor(baseColor));line.setAttribute('transform',`rotate(-17 ${10+i*14} 24)`);svg.appendChild(line);}designDiv.appendChild(svg);}
+    }
+    function contrastingColor(color){const c=color.substring(1);const rgb=parseInt(c,16);const r=(rgb>>16)&0xff,g=(rgb>>8)&0xff,b=rgb&0xff;const lum=r*0.2126+g*0.7152+b*0.0722;return lum>160?"#222":"#fff";}
+    function animateBrushPaint(nailEl,paintColor,onDone){
+      isAnimating=true;
+      let brush=brushSVG.cloneNode(true);brush.style.display='block';brush.querySelectorAll('rect')[2].setAttribute('fill',paintColor);
+      const rect=nailEl.getBoundingClientRect();const handRect=hand.getBoundingClientRect();
+      const startX=rect.left-handRect.left+rect.width/2-14;const startY=rect.top-handRect.top+rect.height+12;const endY=rect.top-handRect.top-16;
+      brush.style.left=`${startX}px`;brush.style.top=`${startY}px`;brush.style.opacity=1;hand.appendChild(brush);
+      let progress=0,max=3,posX=startX,posY=startY;
+      function animFrame(){
+        progress++;let t=progress/max;if(t>1)t=1;
+        posY=startY+(endY-startY)*t;
+        brush.style.left=`${posX}px`;brush.style.top=`${posY}px`;nailEl.style.filter=t<.85?"brightness(0.93)":'';
+        if(progress<max){requestAnimationFrame(animFrame);}else{setTimeout(()=>{nailEl.style.filter='';brush.style.opacity=0;setTimeout(()=>{if(hand.contains(brush))hand.removeChild(brush);isAnimating=false;onDone();},8);},8);}
+      }
+      animFrame();
+    }
+    function checkWin(){
+      const okColor=nails.every(n=>n.color===order.color.value);if(!okColor){status.textContent='';return;}
+      if(order.design!=='none'){const ok=Array.from(document.querySelectorAll('.nail')).every(nel=>nel.querySelector('.design svg'));if(!ok){status.textContent='';return;}}
+      playerWins();
+    }
+    function playerWins(){
+      clearInterval(timer);timer=null;let isGlitterOrder=!!order.color.glitter;let earned=isGlitterOrder?10:5;
+      totalEarned+=earned;customersServed+=1;let oldLevel=curLevel;curLevel=computeLevel(customersServed);
+      status.style.color=isGlitterOrder?"#b478fc":"#2ab277";
+      status.innerHTML = `+$${earned}${isGlitterOrder?' <span>✨</span>':''}`+(curLevel>oldLevel?` <span style="color:#e366fa;font-weight:700;">Lvl ${curLevel}!</span>`:'');
+      updateScoreBoard();timerSpan.textContent='';resetBtn.disabled=false;cancelWaitingBubble();
+      animateCustomerOutcome(true,isGlitterOrder);
+      if(curLevel>oldLevel)GLITTER_LEVELS.forEach((lvl,i)=>{if(curLevel>=lvl&&oldLevel<lvl){levelUnlocks[i].style.background="#e7e1fc";}});
+    }
+    function startTimer(){
+      showOrder();timerSpan.style.color="#993c47";timer&&clearInterval(timer);
+      timer=setInterval(()=>{if(timeLeft<=0){timerSpan.textContent='0s';timerLose();clearInterval(timer);timer=null;return;}
+        timeLeft--;showOrder();if(timeLeft <= 7) timerSpan.style.color="#c33";},1000);
+    }
+    function timerLose(){status.style.color="#b53a4a";status.textContent="Time's up!";resetBtn.disabled=false;cancelWaitingBubble();animateCustomerOutcome(false,false);}
+    resetBtn.onclick=()=>{setupGame();status.style.color="#3a1830";};
     setupGame();
   </script>
 </body>
