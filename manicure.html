@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manicure Game</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #fbeff7;}
+    .hand { display: flex; justify-content: center; margin-top: 40px; }
+    .finger {
+      width: 60px; height: 170px; margin: 0 8px; background: #ffe0c0;
+      border-radius: 30px 30px 40px 40px / 40px 40px 100px 100px;
+      position: relative; box-shadow: 0 2px 10px #0002;
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .nail {
+      width: 40px; height: 40px; background: #fff; border-radius: 20px 20px 25px 25px / 20px 20px 40px 40px;
+      border: 2px solid #d1b080; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+      box-shadow: 0 1px 8px #0002;
+      transition: background 0.3s, border 0.3s;
+      cursor: pointer;
+    }
+    .palette { margin: 30px auto 10px; display: flex; justify-content: center; }
+    .color-btn {
+      width: 38px; height: 38px; margin: 0 8px; border: 2px solid #bbb; border-radius: 50%; cursor: pointer;
+      display: inline-block; transition: border 0.2s; box-shadow:0 1px 6px #0002;
+    }
+    .color-btn.selected { border: 3px solid #777; }
+    h3, #status { margin-top:18px;}
+    #resetBtn { margin-left: 16px; padding: 6px 18px; border-radius: 8px; border: 1px solid #bbb; background: #fff0fa; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Manicure Game</h2>
+  <h3 id="prompt"></h3>
+  <div class="palette" id="palette"></div>
+  <div class="hand" id="hand"></div>
+  <div>
+    <span id="status"></span>
+    <button id="resetBtn">Reset</button>
+  </div>
+  <script>
+    // Config
+    const NUM_FINGERS = 5;
+    const COLORS = [
+      { name: 'Red', value: '#ff3040' },
+      { name: 'Blue', value: '#4070ff' },
+      { name: 'Green', value: '#45e75a' },
+      { name: 'Purple', value: '#9e34f8' },
+      { name: 'Orange', value: '#ffa825' },
+      { name: 'Pink', value: '#ff69b4' },
+      { name: 'Yellow', value: '#fff930' }
+    ];
+    // Pick 1 random color as the "order"
+    let promptColor;
+    let selectedColor = COLORS[0].value;
+    let nails = []; // stores painted color per nail
+
+    function setupGame() {
+      // Pick a random prompt color
+      promptColor = COLORS[ Math.floor(Math.random() * COLORS.length)];
+      document.getElementById('prompt').innerHTML = `Paint all nails <span style="color:${promptColor.value};">${promptColor.name}</span>!`;
+
+      // Create color palette
+      const palette = document.getElementById('palette');
+      palette.innerHTML = '';
+      COLORS.forEach(col => {
+        const btn = document.createElement('div');
+        btn.className = 'color-btn' + (col.value === selectedColor ? ' selected' : '');
+        btn.style.background = col.value;
+        btn.title = col.name;
+        btn.onclick = () => {
+          selectedColor = col.value;
+          document.querySelectorAll('.color-btn').forEach(c => c.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        palette.appendChild(btn);
+      });
+
+      // Create fingers and nails
+      nails = Array(NUM_FINGERS).fill('');
+      const hand = document.getElementById('hand');
+      hand.innerHTML = '';
+      for (let i = 0; i < NUM_FINGERS; i++) {
+        const finger = document.createElement('div'); finger.className = 'finger';
+        const nail = document.createElement('div'); nail.className = 'nail'; nail.dataset.idx = i;
+        nail.onclick = () => {
+          nails[i] = selectedColor;
+          nail.style.background = selectedColor;
+          nail.style.border = (selectedColor === '#fff930') ? '2px solid #888' : '2px solid #d1b080';
+          checkWin();
+        };
+        finger.appendChild(nail);
+        hand.appendChild(finger);
+      }
+      document.getElementById('status').textContent = '';
+    }
+    function checkWin() {
+      if(nails.every(color => color === promptColor.value)) {
+        document.getElementById('status').textContent = "Great job! All nails are painted correctly! 💅";
+      } else {
+        document.getElementById('status').textContent = '';
+      }
+    }
+    document.getElementById('resetBtn').onclick = setupGame;
+
+    // Initialize
+    setupGame();
+  </script>
+</body>
+</html>
